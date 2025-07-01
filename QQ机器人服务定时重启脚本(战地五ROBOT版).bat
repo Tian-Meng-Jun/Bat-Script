@@ -3,9 +3,9 @@ setlocal enabledelayedexpansion
 TITLE  QQ机器人服务定时重启脚本(战地五ROBOT版) v9.0.2
 REM 设置ROBOT和QQ的存放路径
 set "ROBOT_Path=C:\Program Files Green"
-set "QQ_Path=C:\Program Files Green\NapCat.Shell"
+set "QQ_Path=C:\Program Files\Tencent\QQNT"
 REM 设置ROBOT和QQ的启动文件
-set "QQ_File=napcat.quick.bat"
+set "QQ_File=QQ.exe"
 REM 设置脚本的启动与结束时间范围 (格式 HHMM)
 set "start_time=1200"
 set "end_time=0200"
