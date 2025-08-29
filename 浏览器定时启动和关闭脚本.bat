@@ -39,9 +39,13 @@ goto loop
 
 REM 如果在设置的时间段内，则会运行程序此指令
 :Run
+taskkill /IM "%Browser-1_File%"
+timeout /t 2
 start "" /D "%Browser-1_Path%" "%Browser-1_File%"
 timeout /t %Browser-1_Gap%
 taskkill /IM "%Browser-1_File%"
+taskkill /IM "%Browser-2_File%"
+timeout /t 2
 start "" /D "%Browser-2_Path%" "%Browser-2_File%"
 timeout /t %Browser-2_Gap%
 taskkill /IM "%Browser-2_File%"
