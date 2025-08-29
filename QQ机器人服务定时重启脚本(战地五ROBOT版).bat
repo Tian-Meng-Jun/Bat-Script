@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-TITLE  QQ机器人服务定时重启脚本(战地五ROBOT版) v9.0.2
+TITLE  QQ机器人服务定时重启脚本(战地五ROBOT版) v9.1.0
 REM 设置ROBOT和QQ的存放路径
 set "ROBOT_Path=C:\Program Files Green"
 set "QQ_Path=C:\Program Files\Tencent\QQNT"
@@ -28,7 +28,9 @@ echo.     3. 指定次数范围内循环        (结束后保留ROBOT程序)
 echo. 
 echo.     4. 指定次数范围内循环        (结束后不保留ROBOT程序)
 echo. 
-echo.     5. 只启动[BFV ROBOT]         (需手动结束ROBOT程序)
+echo.     5. 二十四小时一直循环         (需手动结束ROBOT程序)
+echo. 
+echo.     6. 只启动[BFV ROBOT]         (需手动结束ROBOT程序)
 echo. 
 echo. =========================================================
 choice /c 12345 /n /M "请输入要执行的选项："
@@ -36,7 +38,8 @@ if %errorlevel%==1 goto Time_1
 if %errorlevel%==2 goto Time_2
 if %errorlevel%==3 goto UI_1
 if %errorlevel%==4 goto UI_2
-if %errorlevel%==5 goto ROBOT  
+if %errorlevel%==5 goto 24H
+if %errorlevel%==6 goto ROBOT  
 
 :UI_1
 cls
@@ -114,6 +117,12 @@ for /l %%i in (1,1,%count%) do (
     call :Loop_2
 )
 goto UI
+
+:: 指定次数循环 (结束后保留ROBOT程序)
+:24H
+cls
+call :Loop_2
+goto 24H
 
 :: 结束后保留ROBOT程序
 :Loop_1
