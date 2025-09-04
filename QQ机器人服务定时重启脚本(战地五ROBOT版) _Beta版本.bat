@@ -33,7 +33,7 @@ echo.
 echo.     6. 只启动[BFV ROBOT]         (需手动结束ROBOT程序)
 echo. 
 echo. =========================================================
-choice /c 12345 /n /M "请输入要执行的选项："
+choice /c 123456 /n /M "请输入要执行的选项："
 if %errorlevel%==1 goto Time_1
 if %errorlevel%==2 goto Time_2
 if %errorlevel%==3 goto UI_1
