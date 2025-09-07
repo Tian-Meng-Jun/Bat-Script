@@ -144,8 +144,6 @@ exit /b
 :: 结束ROBOT程序与QQ程序
 :Kill
 taskkill /IM QQ.exe /F
-taskkill /IM CatClientD.exe
-taskkill /IM CatClientE.exe
-taskkill /IM CatClientL.exe
+taskkill /IM %ROBOT_File%
 cls
 exit /b
