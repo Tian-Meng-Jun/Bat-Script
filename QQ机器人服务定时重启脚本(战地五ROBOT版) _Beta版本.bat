@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-TITLE  QQ机器人服务定时重启脚本(战地五ROBOT版) v9.2.3_Beta
+TITLE  QQ机器人服务定时重启脚本(战地五ROBOT版) v9.2.5_Beta
 REM 设置ROBOT和QQ的存放路径
 set "ROBOT_Path=C:\Program Files Green"
 set "QQ_Path=C:\Program Files\Tencent\QQNT"
