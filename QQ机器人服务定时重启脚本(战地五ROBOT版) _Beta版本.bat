@@ -35,6 +35,7 @@ echo.     6. 只启动[BFV ROBOT]         (需手动结束ROBOT程序)
 echo. 
 echo. =========================================================
 choice /c 123456 /n /M "请输入要执行的选项："
+set "Figure=%errorlevel%"
 if %errorlevel%==1 goto Time_to_Run
 if %errorlevel%==2 goto Time_to_Run
 if %errorlevel%==3 goto Loop_to_Run
@@ -47,10 +48,10 @@ if %errorlevel%==6 goto ROBOT
 cls
 call :Time
 if !end_time_minutes! lss !start_time_minutes! (
-    if !current_time_minutes! geq !start_time_minutes! ( goto Run_%errorlevel% )
-    if !current_time_minutes! lss !end_time_minutes! ( goto Run_%errorlevel% )
+    if !current_time_minutes! geq !start_time_minutes! ( goto Run_%Figure% )
+    if !current_time_minutes! lss !end_time_minutes! ( goto Run_%Figure% )
 ) else (
-    if !current_time_minutes! geq !start_time_minutes! if !current_time_minutes! lss !end_time_minutes! ( goto Run_%errorlevel% )
+    if !current_time_minutes! geq !start_time_minutes! if !current_time_minutes! lss !end_time_minutes! ( goto Run_%Figure% )
 )
 echo 检查时间是否符合条件
 timeout /t 1 >nul
@@ -59,7 +60,7 @@ goto Time_to_Run
 :Loop_to_Run
 cls
 set /p count=请输入要循环的次数(必须为正整数)：
-goto Run_%errorlevel%
+goto Run_%Figure%
 
 
 :: 方案执行分区
