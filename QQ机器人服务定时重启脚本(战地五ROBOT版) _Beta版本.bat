@@ -1,14 +1,22 @@
 @echo off
 setlocal enabledelayedexpansion
-TITLE  QQ机器人服务定时重启脚本(战地五ROBOT版) v9.2.6_Beta
+TITLE  QQ机器人服务定时重启脚本(战地五ROBOT版) v9.3.0_Beta
 
 
 REM 脚本配置
 :: |设置ROBOT和QQ的存放路径|
-set "ROBOT_Path=C:\Program Files\Catclient"
+set "ROBOT_Path_1=C:\Program Files\Catclient1"
+set "ROBOT_Path_2=C:\Program Files\Catclient2"
+set "ROBOT_Path_3=C:\Program Files\Catclient3"
+set "ROBOT_Path_4=C:\Program Files\Catclient4"
+set "ROBOT_Path_5=C:\Program Files\Catclient5"
 set "QQ_Path=C:\Program Files\Tencent\QQNT"
 :: |设置ROBOT和QQ的启动文件|
-set "ROBOT_File=catclient.exe"
+set "ROBOT_File_1=catclient1.exe"
+set "ROBOT_File_2=catclient2.exe"
+set "ROBOT_File_3=catclient3.exe"
+set "ROBOT_File_4=catclient4.exe"
+set "ROBOT_File_5=catclient5.exe"
 set "QQ_File=QQ.exe"
 :: |设置脚本的启动与结束时间范围(格式:HHMM)|
 set "start_time=1200"
@@ -161,7 +169,66 @@ exit /b
 ::  ROBOT程序启动
 ::  ===========================================================
 :ROBOT
-start "" /D "%ROBOT_Path%" /MIN "%ROBOT_File%"
+::  ROBOT程序 1
+if defined ROBOT_Path_1 (
+    if defined ROBOT_File_1 (
+        echo 正在启动%ROBOT_File_1%中
+        start "" /D "%ROBOT_Path_1%" /MIN "%ROBOT_File_1%"
+        echo 已执行%ROBOT_File_1%的启动命令
+    ) else (
+        echo 错误：[ROBOT_File_1] 参数未设置，已跳过执行
+    )
+) else (
+    echo 错误：[ROBOT_Path_1] 参数未设置，已跳过执行
+)
+::  ROBOT程序 2
+if defined ROBOT_Path_2 (
+    if defined ROBOT_File_2 (
+        echo 正在启动%ROBOT_File_2%中
+        start "" /D "%ROBOT_Path_2%" /MIN "%ROBOT_File_2%"
+        echo 已执行%ROBOT_File_2%的启动命令
+    ) else (
+        echo 错误：[ROBOT_File_2] 参数未设置，已跳过执行
+    )
+) else (
+    echo 错误：[ROBOT_Path_2] 参数未设置，已跳过执行
+)
+::  ROBOT程序 3
+if defined ROBOT_Path_3 (
+    if defined ROBOT_File_3 (
+        echo 正在启动%ROBOT_File_3%中
+        start "" /D "%ROBOT_Path_3%" /MIN "%ROBOT_File_3%"
+        echo 已执行%ROBOT_File_3%的启动命令
+    ) else (
+        echo 错误：[ROBOT_File_3] 参数未设置，已跳过执行
+    )
+) else (
+    echo 错误：[ROBOT_Path_3] 参数未设置，已跳过执行
+)
+::  ROBOT程序 4
+if defined ROBOT_Path_4 (
+    if defined ROBOT_File_4 (
+        echo 正在启动%ROBOT_File_4%中
+        start "" /D "%ROBOT_Path_4%" /MIN "%ROBOT_File_4%"
+        echo 已执行%ROBOT_File_4%的启动命令
+    ) else (
+        echo 错误：[ROBOT_File_4] 参数未设置，已跳过执行
+    )
+) else (
+    echo 错误：[ROBOT_Path_4] 参数未设置，已跳过执行
+)
+::  ROBOT程序 5
+if defined ROBOT_Path_5 (
+    if defined ROBOT_File_5 (
+        echo 正在启动%ROBOT_File_5%中
+        start "" /D "%ROBOT_Path_5%" /MIN "%ROBOT_File_5%"
+        echo 已执行%ROBOT_File_5%的启动命令
+    ) else (
+        echo 错误：[ROBOT_File_5] 参数未设置，已跳过执行
+    )
+) else (
+    echo 错误：[ROBOT_Path_5] 参数未设置，已跳过执行
+)
 cls
 exit /b
 
@@ -170,5 +237,30 @@ exit /b
 :Kill
 taskkill /IM QQ.exe /F
 taskkill /IM %ROBOT_File%
+if defined ROBOT_File_1 (
+    taskkill /IM %ROBOT_File_1%
+    )else (
+    echo 错误：[ROBOT_File_1] 参数未设置，已跳过执行
+)
+if defined ROBOT_File_2 (
+    taskkill /IM %ROBOT_File_2%
+    )else (
+    echo 错误：[ROBOT_File_2] 参数未设置，已跳过执行
+)
+if defined ROBOT_File_3 (
+    taskkill /IM %ROBOT_File_3%
+    )else (
+    echo 错误：[ROBOT_File_3] 参数未设置，已跳过执行
+)
+if defined ROBOT_File_4 (
+    taskkill /IM %ROBOT_File_4%
+    )else (
+    echo 错误：[ROBOT_File_4] 参数未设置，已跳过执行
+)
+if defined ROBOT_File_5 (
+    taskkill /IM %ROBOT_File_5%
+    )else (
+    echo 错误：[ROBOT_File_5] 参数未设置，已跳过执行
+)
 cls
 exit /b
