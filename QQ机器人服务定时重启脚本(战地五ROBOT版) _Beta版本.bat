@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-TITLE  QQ机器人服务定时重启脚本(战地五ROBOT版) v9.3.0_Beta
+TITLE  QQ机器人服务定时重启脚本(战地五ROBOT版) v9.3.1_Beta
 
 
 REM 脚本配置
@@ -46,7 +46,6 @@ echo.
 echo.     6. 只启动[BFV ROBOT]         (需手动结束ROBOT程序)
 echo. 
 echo. =========================================================
-
 choice /c 123456 /n /M "请输入要执行的选项："
 set "Figure=%errorlevel%"
 if %errorlevel%==1 goto Time_to_Run
@@ -62,54 +61,34 @@ REM 方案跳转分区:
 cls
 call :Time
 if !end_time_minutes! lss !start_time_minutes! (
-    if !current_time_minutes! geq !start_time_minutes! ( goto Run_%Figure% )
-    if !current_time_minutes! lss !end_time_minutes! ( goto Run_%Figure% )
+    if !current_time_minutes! geq !start_time_minutes! ( goto Run_to_loop )
+    if !current_time_minutes! lss !end_time_minutes! ( goto Run_to_loop )
 ) else (
-    if !current_time_minutes! geq !start_time_minutes! if !current_time_minutes! lss !end_time_minutes! ( goto Run_%Figure% )
+    if !current_time_minutes! geq !start_time_minutes! if !current_time_minutes! lss !end_time_minutes! ( goto Run_to_loop )
 )
 echo 检查时间是否符合条件
 timeout /t 1 >nul
 goto Time_to_Run
 
-:Loop_to_Run
-cls
-set /p count=请输入要循环的次数(必须为正整数)：
-goto Run_%Figure%
-
 
 REM 方案执行分区:
 
-::  1.指定时间范围内循环(结束后保留ROBOT程序)
+::  1.指定时间范围内循环
 ::  ===========================================================
-:Run_1
+:Run_to_loop
 cls
-call :Loop_1
+call :Loop
 goto Time_to_Run
 
-::  2.指定时间范围内循环(结束后不保留ROBOT程序)
+::  3.指定次数循环
 ::  ===========================================================
-:Run_2
+:Loop_to_Run
 cls
-call :Loop_2
-goto Time_to_Run
-
-::  3.指定次数循环 (结束后保留ROBOT程序)
-::  ===========================================================
-:Run_3
+set /p count=请输入要循环的次数(必须为正整数)：
 for /l %%i in (1,1,%count%) do (
     cls
     echo 第 %%i 次循环
-    call :Loop_1
-)
-goto UI
-
-::  4.指定次数循环 (结束后不保留ROBOT程序)
-::  ===========================================================
-:Run_4
-for /l %%i in (1,1,%count%) do (
-    cls
-    echo 第 %%i 次循环
-    call :Loop_2
+    call :Loop
 )
 goto UI
 
@@ -117,7 +96,7 @@ goto UI
 ::  ===========================================================
 :Run_5
 cls
-call :Loop_2
+call :Loop
 goto Run_5
 
 ::  6.只启动[BFV ROBOT]
@@ -142,29 +121,23 @@ set /a start_time_minutes=(%start_time:~0,2%*60)+%start_time:~2,2%
 set /a end_time_minutes=(%end_time:~0,2%*60)+%end_time:~2,2%
 exit /b
 
+::  方案循环模块
+::  ===========================================================
+:Loop
+call :Kill
+timeout /t 6
+start "" /D "%QQ_Path%" /MIN "%QQ_File%"
+timeout /t 10
+call :ROBOT
+timeout /t %Gap%
 ::  结束后保留ROBOT程序
 ::  ===========================================================
-:Loop_1
-call :Kill
-timeout /t 6
-start "" /D "%QQ_Path%" /MIN "%QQ_File%"
-timeout /t 10
-call :ROBOT
-timeout /t %Gap%
-taskkill /IM QQ.exe /F
-exit /b
-
+echo %Figure%|findstr "^1$ ^3$" >nul && taskkill /IM QQ.exe /F
 ::  结束后不保留ROBOT程序
 ::  ===========================================================
-:Loop_2
-call :Kill
-timeout /t 6
-start "" /D "%QQ_Path%" /MIN "%QQ_File%"
-timeout /t 10
-call :ROBOT
-timeout /t %Gap%
-call :Kill
+echo %Figure%|findstr "^2$ ^4$ ^5$" >nul && call :Kill
 exit /b
+
 
 ::  ROBOT程序启动
 ::  ===========================================================
@@ -172,9 +145,7 @@ exit /b
 ::  ROBOT程序 1
 if defined ROBOT_Path_1 (
     if defined ROBOT_File_1 (
-        echo 正在启动%ROBOT_File_1%中
         start "" /D "%ROBOT_Path_1%" /MIN "%ROBOT_File_1%"
-        echo 已执行%ROBOT_File_1%的启动命令
     ) else (
         echo 错误：[ROBOT_File_1] 参数未设置，已跳过执行
     )
@@ -184,9 +155,7 @@ if defined ROBOT_Path_1 (
 ::  ROBOT程序 2
 if defined ROBOT_Path_2 (
     if defined ROBOT_File_2 (
-        echo 正在启动%ROBOT_File_2%中
         start "" /D "%ROBOT_Path_2%" /MIN "%ROBOT_File_2%"
-        echo 已执行%ROBOT_File_2%的启动命令
     ) else (
         echo 错误：[ROBOT_File_2] 参数未设置，已跳过执行
     )
@@ -196,9 +165,7 @@ if defined ROBOT_Path_2 (
 ::  ROBOT程序 3
 if defined ROBOT_Path_3 (
     if defined ROBOT_File_3 (
-        echo 正在启动%ROBOT_File_3%中
         start "" /D "%ROBOT_Path_3%" /MIN "%ROBOT_File_3%"
-        echo 已执行%ROBOT_File_3%的启动命令
     ) else (
         echo 错误：[ROBOT_File_3] 参数未设置，已跳过执行
     )
@@ -208,9 +175,7 @@ if defined ROBOT_Path_3 (
 ::  ROBOT程序 4
 if defined ROBOT_Path_4 (
     if defined ROBOT_File_4 (
-        echo 正在启动%ROBOT_File_4%中
         start "" /D "%ROBOT_Path_4%" /MIN "%ROBOT_File_4%"
-        echo 已执行%ROBOT_File_4%的启动命令
     ) else (
         echo 错误：[ROBOT_File_4] 参数未设置，已跳过执行
     )
@@ -220,9 +185,7 @@ if defined ROBOT_Path_4 (
 ::  ROBOT程序 5
 if defined ROBOT_Path_5 (
     if defined ROBOT_File_5 (
-        echo 正在启动%ROBOT_File_5%中
         start "" /D "%ROBOT_Path_5%" /MIN "%ROBOT_File_5%"
-        echo 已执行%ROBOT_File_5%的启动命令
     ) else (
         echo 错误：[ROBOT_File_5] 参数未设置，已跳过执行
     )
