@@ -236,30 +236,29 @@ exit /b
 ::  ===========================================================
 :Kill
 taskkill /IM QQ.exe /F
-taskkill /IM %ROBOT_File%
 if defined ROBOT_File_1 (
     taskkill /IM %ROBOT_File_1%
-    )else (
+    ) else (
     echo 错误：[ROBOT_File_1] 参数未设置，已跳过执行
 )
 if defined ROBOT_File_2 (
     taskkill /IM %ROBOT_File_2%
-    )else (
+    ) else (
     echo 错误：[ROBOT_File_2] 参数未设置，已跳过执行
 )
 if defined ROBOT_File_3 (
     taskkill /IM %ROBOT_File_3%
-    )else (
+    ) else (
     echo 错误：[ROBOT_File_3] 参数未设置，已跳过执行
 )
 if defined ROBOT_File_4 (
     taskkill /IM %ROBOT_File_4%
-    )else (
+    ) else (
     echo 错误：[ROBOT_File_4] 参数未设置，已跳过执行
 )
 if defined ROBOT_File_5 (
     taskkill /IM %ROBOT_File_5%
-    )else (
+    ) else (
     echo 错误：[ROBOT_File_5] 参数未设置，已跳过执行
 )
 cls
