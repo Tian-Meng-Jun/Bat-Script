@@ -45,8 +45,10 @@ echo.     5. 二十四小时一直循环        (需手动结束ROBOT程序)
 echo. 
 echo.     6. 只启动[BFV ROBOT]         (需手动结束ROBOT程序)
 echo. 
+echo.     7. 浏览本项目在github仓库上的代码
+echo. 
 echo. =========================================================
-choice /c 123456 /n /M "请输入要执行的选项："
+choice /c 1234567 /n /M "请输入要执行的选项："
 set "Figure=%errorlevel%"
 if %errorlevel%==1 goto Time_to_Run
 if %errorlevel%==2 goto Time_to_Run
@@ -54,6 +56,7 @@ if %errorlevel%==3 goto Loop_to_Run
 if %errorlevel%==4 goto Loop_to_Run
 if %errorlevel%==5 goto Run_5
 if %errorlevel%==6 goto Run_6  
+if %errorlevel%==7 goto Run_7 
 
 
 REM 方案跳转分区:
@@ -107,6 +110,13 @@ call :ROBOT
 timeout /t 2
 goto UI
 
+::  7.浏览本项目在github仓库上的代码
+::  ===========================================================
+:Run_7
+cls
+start "" "https://github.com/Tian-Meng-Jun/Bat-Script"
+timeout /t 2
+goto UI
 
 REM 功能模块:
 
