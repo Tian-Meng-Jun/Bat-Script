@@ -18,6 +18,7 @@ if %errorlevel% equ 0 (
     ) else (
         timeout /t 7200
         taskkill /IM QQ.exe /F
+        timeout /t 2
         goto :Process
     )
 ) else (
