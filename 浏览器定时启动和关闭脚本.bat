@@ -3,16 +3,13 @@ setlocal enabledelayedexpansion
 TITLE  浏览器定时启动脚本
 
 REM 浏览器路径与启动文件、运行时间配置
-set "Browser-1_Path=C:\Program Files\Google\Chrome"
-set "Browser-1_File=chrome.exe"
-set "Browser-1_Gap=20000"
-set "Browser-2_Path=C:\Program Files\Twinkstar Browser"
-set "Browser-2_File=twinkstar.exe"
-set "Browser-2_Gap=20000"
+set "Browser_Path=C:\Program Files\Google\Chrome"
+set "Browser_File=chrome.exe"
+set Browser_Number=40
+set /a Browser_Gap = %Browser_Number * 550 
 REM 启动时间和结束时间配置
 set start_time=1030
 set end_time=1630
-
 
 REM 主循环
 :loop
@@ -39,14 +36,9 @@ goto loop
 
 REM 如果在设置的时间段内，则会运行程序此指令
 :Run
-taskkill /IM "%Browser-1_File%"
+taskkill /IM "%Browser_File%"
 timeout /t 2
-start "" /D "%Browser-1_Path%" "%Browser-1_File%"
-timeout /t %Browser-1_Gap%
-taskkill /IM "%Browser-1_File%"
-taskkill /IM "%Browser-2_File%"
-timeout /t 2
-start "" /D "%Browser-2_Path%" "%Browser-2_File%"
-timeout /t %Browser-2_Gap%
-taskkill /IM "%Browser-2_File%"
+start "" /D "%Browser_Path%" "%Browser_File%"
+timeout /t %Browser_Gap%
+taskkill /IM "%Browser_File%"
 goto loop
